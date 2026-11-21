@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Percentage Calculator</title>
+<style>
+body{font-family:Arial;background:#eff6ff;padding:25px}
+main{max-width:500px;margin:40px auto;background:white;padding:30px;border-radius:16px}
+input,select{width:100%;padding:12px;margin:10px 0;box-sizing:border-box;border:1px solid #93c5fd;border-radius:8px}
+button{width:100%;background:#2563eb;color:white;border:0;padding:14px;border-radius:8px;cursor:pointer}
+#result{background:#dbeafe;padding:20px;margin-top:20px;border-radius:10px;font-size:24px;text-align:center}
+</style>
+</head>
+<body>
+<main>
+<h1>Percentage Calculator</h1>
+<p>Calculate percentages quickly and easily.</p>
+<select id="mode">
+<option value="percentage">A percent of B</option>
+<option value="ratio">A is what percent of B?</option>
+<option value="change">Percentage change from A to B</option>
+</select>
+<input id="a" type="number" step="any" placeholder="Enter value A">
+<input id="b" type="number" step="any" placeholder="Enter value B">
+<button onclick="calculate()">Calculate</button>
+<div id="result">Result: --</div>
+</main>
+<script>
+function calculate(){
+ const a=document.getElementById("a");
+ const b=document.getElementById("b");
+ const mode=document.getElementById("mode").value;
+ const output=document.getElementById("result");
+ if(a.value===""||b.value===""){
+  output.textContent="Enter both values.";
+  return;
+ }
+ const x=Number(a.value);
+ const y=Number(b.value);
+ let result;
+ let unit="";
+ if(mode==="percentage"){
+  result=x*y/100;
+ }else if(mode==="ratio"&&y!==0){
+  result=x/y*100;
+  unit="%";
+ }else if(mode==="change"&&x!==0){
+  result=(y-x)/Math.abs(x)*100;
+  unit="%";
+ }else{
+  output.textContent="Cannot divide by zero.";
+  return;
+ }
+ output.textContent="Result: "+result.toFixed(2)+unit;
+}
+</script>
+</body>
+</html>
