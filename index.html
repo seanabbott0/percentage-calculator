@@ -2,57 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Percentage Calculator</title>
 <style>
-body{font-family:Arial;background:#eff6ff;padding:25px}
-main{max-width:500px;margin:40px auto;background:white;padding:30px;border-radius:16px}
-input,select{width:100%;padding:12px;margin:10px 0;box-sizing:border-box;border:1px solid #93c5fd;border-radius:8px}
-button{width:100%;background:#2563eb;color:white;border:0;padding:14px;border-radius:8px;cursor:pointer}
-#result{background:#dbeafe;padding:20px;margin-top:20px;border-radius:10px;font-size:24px;text-align:center}
+body{font-family:Arial;background:#eef2ff;padding:25px}
+main{max-width:500px;margin:auto;background:white;padding:25px;border-radius:15px}
+input,select{width:100%;padding:12px;box-sizing:border-box;margin:9px 0;border:1px solid #a5b4fc;border-radius:8px}
+button{background:#4f46e5;color:white;padding:12px 18px;border:0;border-radius:8px;cursor:pointer}
+#result{padding:18px;background:#e0e7ff;border-radius:8px;margin-top:18px}
 </style>
 </head>
 <body>
 <main>
 <h1>Percentage Calculator</h1>
-<p>Calculate percentages quickly and easily.</p>
 <select id="mode">
-<option value="percentage">A percent of B</option>
-<option value="ratio">A is what percent of B?</option>
-<option value="change">Percentage change from A to B</option>
+<option value="of">Find percentage of a number</option>
+<option value="what">Find what percentage one number is of another</option>
+<option value="change">Calculate percentage change</option>
 </select>
-<input id="a" type="number" step="any" placeholder="Enter value A">
-<input id="b" type="number" step="any" placeholder="Enter value B">
+<input id="a" type="number" step="any" placeholder="First number">
+<input id="b" type="number" step="any" placeholder="Second number">
 <button onclick="calculate()">Calculate</button>
-<div id="result">Result: --</div>
+<div id="result">Your result will appear here.</div>
 </main>
 <script>
 function calculate(){
- const a=document.getElementById("a");
- const b=document.getElementById("b");
  const mode=document.getElementById("mode").value;
- const output=document.getElementById("result");
- if(a.value===""||b.value===""){
-  output.textContent="Enter both values.";
+ const aField=document.getElementById("a");
+ const bField=document.getElementById("b");
+ const a=Number(aField.value),b=Number(bField.value);
+ const out=document.getElementById("result");
+ if(aField.value===""||bField.value===""){
+  out.textContent="Please enter both numbers.";
   return;
  }
- const x=Number(a.value);
- const y=Number(b.value);
+ if(mode!=="of"&&b===0){
+  out.textContent="The second number cannot be zero.";
+  return;
+ }
  let result;
- let unit="";
- if(mode==="percentage"){
-  result=x*y/100;
- }else if(mode==="ratio"&&y!==0){
-  result=x/y*100;
-  unit="%";
- }else if(mode==="change"&&x!==0){
-  result=(y-x)/Math.abs(x)*100;
-  unit="%";
- }else{
-  output.textContent="Cannot divide by zero.";
-  return;
- }
- output.textContent="Result: "+result.toFixed(2)+unit;
+ if(mode==="of")result=a*b/100;
+ else if(mode==="what")result=a/b*100;
+ else result=(b-a)/Math.abs(a)*100;
+ out.textContent=mode==="of"
+ ?b+"% of "+a+" = "+result.toFixed(2)
+ :result.toFixed(2)+"%";
 }
 </script>
 </body>
