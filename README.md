@@ -21,3 +21,12 @@ Select a calculation type and enter two values.
 ## Running Locally
 
 Open `index.html` in a modern web browser.
+## Manual Testing Checklist
+
+- [ ] Calculate a known percentage of a number.
+- [ ] Test percentage ratio with a nonzero denominator.
+- [ ] Check zero-denominator validation and percentage change.
+
+### Test Notes
+
+Record the observed result and any reproducible issue after running the tests.
